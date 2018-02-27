@@ -1,0 +1,28 @@
+1. SELECT name
+FROM Highschooler, Friend, Highschooler h2
+WHERE Highschooler.ID = Friend.ID1
+    AND h2.ID = Friend.ID2
+    AND Highschooler.name = 'Gabriel';
+    
+2. SELECT name, grade
+FROM Highschooler
+WHERE ID NOT IN (
+    SELECT ID1, ID2
+    FROM Likes);
+    
+3. SELECT name, grade
+FROM Highschooler
+WHERE ID IN (
+    SELECT ID2
+    FROM Likes
+    Group By ID2 Having COUNT(ID1) >1);
+
+4. SELECT h1.name, h1.grade, h2.name, h2.grade
+FROM Highschooler h1, Highschooler h2, Likes
+WHERE h1.ID = ID1 AND h2.ID = ID2 AND (h1.grade - h2.grade) >= 2;
+
+8. SELECT AVG(count) as "average"
+FROM (
+    SELECT count(ID1) as "count"
+    FROM Friend
+    GROUP BY ID1);
